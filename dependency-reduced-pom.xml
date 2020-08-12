@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>aliyun.serverless</groupId>
+  <artifactId>scheduler-java</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <build>
+    <extensions>
+      <extension>
+        <groupId>kr.motd.maven</groupId>
+        <artifactId>os-maven-plugin</artifactId>
+        <version>1.6.2</version>
+      </extension>
+    </extensions>
+    <plugins>
+      <plugin>
+        <groupId>org.xolstice.maven.plugins</groupId>
+        <artifactId>protobuf-maven-plugin</artifactId>
+        <version>0.6.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>compile-custom</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <protocArtifact>com.google.protobuf:protoc:${protoc.version}:exe:${os.detected.classifier}</protocArtifact>
+          <pluginId>grpc-java</pluginId>
+          <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.4.1</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer>
+                  <mainClass>aliyun.serverless.SchedulerServer</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <repositories>
+    <repository>
+      <id>central-repos</id>
+      <name>Central Repository</name>
+      <url>http://repo.maven.apache.org/maven2</url>
+    </repository>
+    <repository>
+      <id>oschina-repos</id>
+      <name>Oschina Releases</name>
+      <url>http://maven.oschina.net/content/groups/public</url>
+    </repository>
+    <repository>
+      <id>aliyun-repos</id>
+      <name>aliyun Releases</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+    </repository>
+    <repository>
+      <id>java-repos</id>
+      <name>Java Repository</name>
+      <url>https://maven.java.net/content/repositories/public/</url>
+    </repository>
+    <repository>
+      <id>JBoss-repos</id>
+      <name>JBoss Repository</name>
+      <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+    </repository>
+    <repository>
+      <id>springsource-repos</id>
+      <name>SpringSource Repository</name>
+      <url>http://repo.spring.io/release/</url>
+    </repository>
+    <repository>
+      <id>central-repos2</id>
+      <name>Central Repository 2</name>
+      <url>http://repo1.maven.org/maven2/</url>
+    </repository>
+    <repository>
+      <id>activiti-repos</id>
+      <name>Activiti Repository</name>
+      <url>https://maven.alfresco.com/nexus/content/groups/public</url>
+    </repository>
+    <repository>
+      <id>activiti-repos2</id>
+      <name>Activiti Repository 2</name>
+      <url>https://app.camunda.com/nexus/content/groups/public</url>
+    </repository>
+    <repository>
+      <id>easonjim-repos</id>
+      <name>EasonJim Repository</name>
+      <url>https://raw.github.com/easonjim/repository/master</url>
+    </repository>
+  </repositories>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.grpc</groupId>
+        <artifactId>grpc-bom</artifactId>
+        <version>${grpc.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>javax.annotation</groupId>
+        <artifactId>javax.annotation-api</artifactId>
+        <version>1.3.2</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <properties>
+    <java.version>1.8</java.version>
+    <grpc.version>1.31.0</grpc.version>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <protobuf.plugin.version>0.6.1</protobuf.plugin.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <protoc.version>3.12.0</protoc.version>
+    <os.plugin.version>1.6.2</os.plugin.version>
+    <main.class>aliyun.serverless.SchedulerServer</main.class>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <protobuf.version>3.12.0</protobuf.version>
+  </properties>
+</project>
+
